@@ -19,5 +19,6 @@ Auth::routes([
 ]);
 Route::group(['namespace' => 'App\Http\Livewire\Admin'], function () {
     Route::get('/', AdminDashboardIndex::class)->name('admin.dashboard')->middleware('auth');
+    Route::get('/dashboard', AdminDashboardIndex::class)->name('admin.dashboard')->middleware('auth');
 });
 

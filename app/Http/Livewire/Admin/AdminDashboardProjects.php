@@ -33,7 +33,7 @@ class AdminDashboardProjects extends Component
         $projectData = $this->getProject();
 
         $projectMainCategories = $projectData->select(['main_project', 'main_project_dscr'])->distinct()->get();
-        $allProject = $projectData->select(['SPD_ID','prj_nm','main_project'])->distinct()->get();
+        $allProject = $projectData->select(['SPD_ID', 'prj_nm', 'main_project'])->distinct()->get();
         $project = $projectData->select(['SPD_ID', 'prj_nm', 'main_project', 'main_project_dscr', DB::raw("SUM(AMT) as AMT")])->groupBy(['SPD_ID', 'prj_nm', 'main_project', 'main_project_dscr']);
 
         if ($this->selectMainProject) {
@@ -49,22 +49,22 @@ class AdminDashboardProjects extends Component
             'projectCategories' => $allProject,
             'projectMainCategories' => $projectMainCategories,
             'projects' => $project->paginate(8),
-            ];
+        ];
 
         return view('livewire.admin.admin-dashboard-projects', $view_data);
     }
 
     public function getProject()
     {
-        $main_project = V_GLCSH_TR::whereIn('main_project', [21, 19, 230, 2, 6, 233,18]);
+        $main_project = V_GLCSH_TR::whereIn('main_project', [21, 19, 230, 2, 6, 233, 18]);
         $item = $this->input;
 
         if (isset($item['start_at'])) {
-            $start_at = Carbon::parse($item['start_at']);
+            $start_at = Carbon::parse($item['start_at'])->toDateString();
             $main_project = $main_project->where('TR_DT', '>=', $start_at);
         }
         if (isset($item['end_at'])) {
-            $end_at = Carbon::parse($item['end_at']);
+            $end_at = Carbon::parse($item['end_at'])->toDateString();
             $main_project = $main_project->where('TR_DT', '<=', $end_at);
 
         }

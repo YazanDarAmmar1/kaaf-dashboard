@@ -207,13 +207,14 @@
         document.addEventListener('livewire:load', function (event) {
             window.Livewire.hook('message.processed', () => {
                 $('#select2').select2();
-                $('#select2').on('change', function (e) {
-                    let elementName = $(this).attr('id');
-                    var data = $(this).select2("val");
-                @this.set(elementName, data);
-                    livewire.emit('selectedProject', data)
-                });
             });
+        });
+
+        $('#select2').on('change', function (e) {
+            let elementName = $(this).attr('id');
+            var data = $(this).select2("val");
+        @this.set(elementName, data);
+            livewire.emit('selectedProject', data)
         });
     </script>
 @endpush
