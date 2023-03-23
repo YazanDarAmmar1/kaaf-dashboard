@@ -172,7 +172,7 @@
                         <td class="tx-right tx-medium tx-inverse">{{$project->prj_nm}}</td>
                         <td class="tx-right tx-medium tx-inverse">{{$project->main_project_dscr}}</td>
                         <td class="tx-right tx-medium tx-danger"
-                            style="direction: ltr">{{number_format($project->AMT,'3',', ',', ')}} دب
+                            style="direction: ltr">{{number_format($project->AMT,'3','. ',', ')}} دب
                         </td>
                     </tr>
                 @empty
