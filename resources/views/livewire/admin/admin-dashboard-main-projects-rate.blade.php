@@ -1,69 +1,122 @@
 <div>
+    @push('css')
+        <!-- Internal Morris Css-->
+        <link href="{{URL::asset('assets/plugins/morris.js/morris.css')}}" rel="stylesheet">
+    @endpush
     <div class="card">
+
         <div class="card-body">
             <div class="main-content-label mg-b-5">
                 المشروعات الرئيسية
             </div>
             <p class="mg-b-20">نسبة التحصيل حسب كل مشروع رئيس.</p>
-            <div class="ht-200 ht-sm-300" id="flotPie2"></div>
+            <div class="table-responsive">
+                <div id="echart1" class="ht-300"></div>
+            </div>
         </div>
     </div>
 </div>
 @push('js')
+    <!--Internal  Datepicker js -->
+    <script src="{{URL::asset('assets/plugins/jquery-ui/ui/widgets/datepicker.js')}}"></script>
+    <!-- Internal Select2 js-->
+    <script src="{{URL::asset('assets/plugins/select2/js/select2.min.js')}}"></script>
+    <!--Internal Echart Plugin -->
+    <script src="{{URL::asset('assets/plugins/echart/echart.js')}}"></script>
     <!-- Internal Chart flot js -->
     <script>
-        $(function () {
-            'use strict';
+        var data = @json($mainProject);
+        var dataName = [];
+        var dataCost = [];
+        var dataAmount = [];
+        for (var i = 0; i < data.length; i++) {
+            dataName.push(data[i]['main_project_dscr']);
+            dataCost.push(data[i]['MAIN_PRJCT_COST']);
+            dataAmount.push(data[i]['AMT']);
+        }
 
-            var piedata = [{
-                label: 'الإعلامية',
-                data: [[1, {{$mainBranch->AMT ?? 0}}]],
-                color: '#531a71'
+        $(function (e) {
+            'use strict'
+            /*----Echart2----*/
+            var chartdata = [{
+                name: 'قيمة التسويق',
+                type: 'bar',
+                barMaxWidth: 20,
+                data: dataCost
             }, {
-                label: 'كُتيب رمضان',
-                data: [
-                    [1, {{$book->AMT ?? 0}}]],
-                color: '#185abd'
-            }, {
-                label: 'المراكز',
-                data: [
-                    [1, {{$branch->AMT ?? 0}}]],
-                color: '#e163f1'
-            }, {
-                label: 'زكاة خارج',
-                data: [
-                    [1, {{$zakatOutBahrain->AMT ?? 0}}]],
-                color: '#c5ac03'
-            }, {
-                label: 'زكاة داخل',
-                data: [
-                    [1, {{$zakatInBahrain->AMT ?? 0}}]],
-                color: '#ff0000'
+                name: 'المحصل',
+                type: 'bar',
+                barMaxWidth: 20,
+                data: dataAmount
             }];
-            $.plot('#flotPie2', piedata, {
-                series: {
-                    pie: {
+            var chart = document.getElementById('echart1');
+            var barChart = echarts.init(chart);
+            var option = {
+                valueAxis: {
+                    axisLine: {
+                        lineStyle: {
+                            color: 'rgba(171, 167, 167,0.2)'
+                        }
+                    },
+                    splitArea: {
                         show: true,
-                        radius: 1,
-                        innerRadius: 0.5,
-                        label: {
-                            show: true,
-                            radius: 2 / 3,
-                            formatter: labelFormatter,
-                            threshold: 0.1
+                        areaStyle: {
+                            color: ['rgba(171, 167, 167,0.2)']
+                        }
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: ['rgba(171, 167, 167,0.2)']
                         }
                     }
                 },
                 grid: {
-                    borderWidth: 1,
-                    borderColor: 'rgba(171, 167, 167,0.2)',
-                    hoverable: true
+                    top: '6',
+                    right: '0',
+                    bottom: '17',
+                    left: '60',
                 },
-            });
-
-            function labelFormatter(label, series) {
-                return '<div style="font-size:8pt; text-align:center; padding:2px; color:white;">' + label + '<br/>' + Math.round(series.percent) + '%</div>';
-            }
+                xAxis: {
+                    data: dataName,
+                    axisLine: {
+                        lineStyle: {
+                            color: 'rgba(171, 167, 167,0.2)'
+                        }
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: 'rgba(171, 167, 167,0.2)'
+                        }
+                    },
+                    axisLabel: {
+                        fontSize: 10,
+                        color: '#5f6d7a'
+                    }
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    position: ['35%', '32%'],
+                },
+                yAxis: {
+                    splitLine: {
+                        lineStyle: {
+                            color: 'rgba(171, 167, 167,0.2)'
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: 'rgba(171, 167, 167,0.2)'
+                        }
+                    },
+                    axisLabel: {
+                        fontSize: 10,
+                        color: '#5f6d7a'
+                    }
+                },
+                series: chartdata,
+                color: ['#285cf7', '#f7557a']
+            };
+            barChart.setOption(option);
         });
     </script>
 @endpush

@@ -34,7 +34,7 @@ class AdminDashboardProjects extends Component
 
         $projectMainCategories = $projectData->select(['main_project', 'main_project_dscr'])->distinct()->get();
         $allProject = $projectData->select(['SPD_ID', 'prj_nm', 'main_project'])->distinct()->get();
-        $project = $projectData->select(['SPD_ID', 'prj_nm', 'main_project', 'main_project_dscr', DB::raw("SUM(AMT) as AMT")])->groupBy(['SPD_ID', 'prj_nm', 'main_project', 'main_project_dscr']);
+        $project = $projectData->select(['SPD_ID', 'prj_nm', 'main_project', 'main_project_dscr', 'MRKT_COST', DB::raw("SUM(AMT) as AMT")])->groupBy(['SPD_ID', 'prj_nm', 'main_project', 'main_project_dscr', 'MRKT_COST']);
 
         if ($this->selectMainProject) {
             $project = $project->where('main_project', $this->selectMainProject);

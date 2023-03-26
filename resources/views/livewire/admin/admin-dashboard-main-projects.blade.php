@@ -157,9 +157,12 @@
                         <td class="tx-right tx-15 tx-danger" style="direction: ltr">
                             {{number_format($project->AMT,'3','. ',', ')}} دب
                         </td>
-                        </td>
                         <td class="tx-right tx-15 tx-danger" style="direction: ltr">
+                            @if($project->MAIN_PRJCT_COST > 0)
                             {{number_format((($project->AMT/$project->MAIN_PRJCT_COST)*100),2,'. ',', ')}} %
+                            @else
+                                <span class="tx-12">  0 %</span>
+                            @endif
                         </td>
                     </tr>
                 @empty

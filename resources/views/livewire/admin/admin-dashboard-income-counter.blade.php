@@ -52,8 +52,12 @@
                         <div class="d-flex">
                             <div class="">
                                 <h4 class="tx-20 font-weight-bold mb-1 text-white" style="direction: ltr">
-                                    {{number_format(((($projects[0]->sum('AMT') - $projects[1]->sum('AMT'))/$projects[1]->sum('AMT'))*100),2,'. ',', ')}}
-                                    <span class="tx-12">%</span>
+                                    @if($projects[1]->sum('AMT') > 0)
+                                        {{number_format(((($projects[0]->sum('AMT') - $projects[1]->sum('AMT'))/$projects[1]->sum('AMT'))*100),2,'. ',', ')}}
+                                        <span class="tx-12">%</span>
+                                    @else
+                                        <span class="tx-12">  0 %</span>
+                                    @endif
                                 </h4>
                                 <p class="mb-0 tx-12 text-white op-7">رمضان 2023-2022</p>
                             </div>

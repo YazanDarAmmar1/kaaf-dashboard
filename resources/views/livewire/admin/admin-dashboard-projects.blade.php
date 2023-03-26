@@ -159,9 +159,10 @@
             <table class="table table-striped table-bordered mb-0 text-sm-nowrap text-lg-nowrap text-xl-nowrap">
                 <thead>
                 <tr>
-                    <th class="wd-lg-25p">رقم المشروع</th>
+                    <th class="wd-lg-10p">رقم المشروع</th>
                     <th class="wd-lg-25p tx-right">اسم المشروع</th>
                     <th class="wd-lg-25p tx-right">المشروع الرئيسي</th>
+                    <th class="wd-lg-25p tx-right">القيمة التسويقية</th>
                     <th class="wd-lg-25p tx-right">المحصل</th>
                 </tr>
                 </thead>
@@ -171,6 +172,9 @@
                         <td>{{$project->SPD_ID}}</td>
                         <td class="tx-right tx-medium tx-inverse">{{$project->prj_nm}}</td>
                         <td class="tx-right tx-medium tx-inverse">{{$project->main_project_dscr}}</td>
+                        <td class="tx-right tx-medium tx-danger"
+                            style="direction: ltr">{{number_format($project->MRKT_COST,'3','. ',', ')}} دب
+                        </td>
                         <td class="tx-right tx-medium tx-danger"
                             style="direction: ltr">{{number_format($project->AMT,'3','. ',', ')}} دب
                         </td>

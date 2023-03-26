@@ -18,10 +18,10 @@
                 </div>
             </div>
 
-{{--            <div class="form-group col-lg-6">--}}
-{{--                <label class="text-black">رمضان 2022</label>--}}
-{{--                <input type="text" id="datepicker" class="form-control">--}}
-{{--            </div>--}}
+            {{--            <div class="form-group col-lg-6">--}}
+            {{--                <label class="text-black">رمضان 2022</label>--}}
+            {{--                <input type="text" id="datepicker" class="form-control">--}}
+            {{--            </div>--}}
 
         </div>
     </div>
@@ -35,7 +35,6 @@
         $('#datepicker').daterangepicker();
 
         $(function () {
-
 
 
             $('#datepicker').daterangepicker({
@@ -74,11 +73,12 @@
                     'اليوم': [moment(), moment()],
                     'أمس': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
                     'قبل أسبوع': [moment().subtract(7, 'days'), moment()],
+                    'تفريغ': [moment('03/05/2023'), moment('05/02/2023')],
 
                 }
             }, cb);
 
-            cb(start, end);
+            cb(startDate, endDate);
 
         });
     </script>

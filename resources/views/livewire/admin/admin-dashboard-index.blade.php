@@ -85,7 +85,7 @@
                 <div class="col-md-12 col-lg-12 col-xl-12 col-12">
                     @livewire('admin.admin-dashboard-main-projects')
                 </div>
-{{--                <div class="col-md-6 col-lg-6 col-xl-6 col-12">--}}
+{{--                <div class="col-md-12 col-lg-12 col-xl-12 col-12">--}}
 {{--                    @livewire('admin.admin-dashboard-main-projects-rate')--}}
 {{--                </div>--}}
 
