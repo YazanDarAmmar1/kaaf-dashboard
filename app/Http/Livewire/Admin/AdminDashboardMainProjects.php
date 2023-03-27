@@ -38,7 +38,7 @@ class AdminDashboardMainProjects extends Component
 
     public function getProject()
     {
-        $main_project = V_GLCSH_TR::whereIn('main_project', [21, 19, 230, 2, 6, 233, 18]);
+        $main_project = V_GLCSH_TR::whereIn('main_project', [21, 19, 230, 2, 6, 233, 18, 25, 26]);
         $item = $this->input;
 
         if (isset($item['start_at'])) {
