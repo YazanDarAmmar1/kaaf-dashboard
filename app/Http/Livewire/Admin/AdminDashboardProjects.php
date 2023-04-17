@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\KY_View\V_AppCode;
 use App\Models\KY_View\V_GLCSH_TR;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -14,6 +15,7 @@ class AdminDashboardProjects extends Component
     public $input;
     public $select2;
     public $selectMainProject;
+    public $collectType;
 
     use WithPagination;
 
@@ -35,19 +37,22 @@ class AdminDashboardProjects extends Component
         $projectMainCategories = $projectData->select(['main_project', 'main_project_dscr'])->distinct()->get();
         $allProject = $projectData->select(['SPD_ID', 'prj_nm', 'main_project'])->distinct()->get();
         $project = $projectData->select(['SPD_ID', 'prj_nm', 'main_project', 'main_project_dscr', 'MRKT_COST', DB::raw("SUM(AMT) as AMT")])->groupBy(['SPD_ID', 'prj_nm', 'main_project', 'main_project_dscr', 'MRKT_COST']);
-
+        $collectType = V_AppCode::where('id', 18)->get();
         if ($this->selectMainProject) {
             $project = $project->where('main_project', $this->selectMainProject);
             $allProject = $allProject->where('main_project', $this->selectMainProject);
-
         }
         if ($this->select2) {
             $project = $project->whereIn('SPD_ID', $this->select2);
+        }
+        if ($this->collectType) {
+            $project = $project->where('csh_ty', $this->collectType);
         }
 
         $view_data = [
             'projectCategories' => $allProject,
             'projectMainCategories' => $projectMainCategories,
+            'collect_type' => $collectType,
             'projects' => $project->paginate(8),
         ];
 

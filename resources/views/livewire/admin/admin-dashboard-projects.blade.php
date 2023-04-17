@@ -155,6 +155,19 @@
         </div>
 
 
+        <div class="mb-2">
+            <label class="label">طريقة التحصيل</label>
+            <select class="form-control border-primary" style="width: 100%" wire:model="collectType">
+                <option label="تحديد"></option>
+                @forelse($collect_type as $type)
+                    <option value="{{$type->SEQ}}">{{$type->DSCR_AR}}</option>
+                @empty
+                @endforelse
+            </select>
+        </div>
+
+
+
         <div class="table-responsive country-table">
             <table class="table table-striped table-bordered mb-0 text-sm-nowrap text-lg-nowrap text-xl-nowrap">
                 <thead>
